@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import lamejs from 'lamejs';
-import run from './mp3-audio.ts'
-import uploadFileToS3 from './aws-setup.js'
+import FileUpload from './file-upload.js';
+import run_mp3 from './mp3-audio.ts'
+import call_fetch from './ai-model/stack-ai-addtochat-data.js';
 
 const AudioRecorder = () => {
   const [audioURL, setAudioURL] = useState('');
@@ -28,7 +29,11 @@ const AudioRecorder = () => {
         recorder.onstop = () => {
           const completeBlob = new Blob(chunks, { type: 'audio/mp3' });
           setAudioURL(URL.createObjectURL(completeBlob));
-          uploadFileToS3(completeBlob, "test.mp3");
+          FileUpload(completeBlob);
+          let transcript = run_mp3('audio.mp3');
+          console.log(transcript);
+          // call_fetch('testfile.txt', transcript);
+          //generate notes
           chunks = [];
         };
       })

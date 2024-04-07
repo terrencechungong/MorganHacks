@@ -1,9 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
-import {FileUploader} from './frontend/input'
-import S3DownloadComponent from './backend/get-s3-item.js';
 import AudioRecorder from './backend/voice-record.js';
-import run from './backend/mp3-audio.ts'
+import SimpleForm from './frontend/chat-interface.js';
 
 function App() {
   const handleClick = () => {

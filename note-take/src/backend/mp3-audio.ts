@@ -16,11 +16,12 @@ const FILE_URL =
 
 // Request parameters 
 
-const run = async (file_name) => {
-  const transcript = await client.transcripts.create({audio_url: file_name});
-  console.log(transcript.text);
+const run_mp3 = async (file_name) => {
+  const transcript = await client.transcripts.create({audio_url: 'https://morgan-hacks.s3.amazonaws.com/uploads/' + file_name});
+  return transcript.text;
+  // make calls to the knowledge base here
 };
 
 
 
-export default run;
+export default run_mp3;
