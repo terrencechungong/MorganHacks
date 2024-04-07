@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Educational Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #CBEBF3;
+    }
+
+    body,
+    .navbar-brand,
+    .nav-link,
+    .card-title,
+    .btn,
+    footer {
+      font-family: 'Poppins', sans-serif;
+      color: var(--primary-color);
+    }
+
+    .bg-primary,
+    .btn-primary,
+    .footer {
+      background-color: var(--primary-color) !important;
+    }
+
+    .text-primary {
+      color: var(--primary-color) !important;
+    }
+
+    .btn-primary,
+    .btn-success {
+      border-color: var(--primary-color) !important;
+    }
+
+    .btn-success {
+      background-color: #4DD0E1 !important;
+    }
+
+    .navbar-dark .navbar-nav .nav-link.active,
+    .navbar-dark .navbar-nav .nav-link:hover {
+      color: #ffffff;
+    }
+
+    .navbar-dark {
+      background-color: var(--primary-color) !important;
+    }
+
+    .card {
+      border: none;
+    }
+
+    .sidebar {
+      min-width: 250px;
+      max-width: 250px;
+      height: 100vh;
+      background-color: var(--primary-color);
+      position: fixed;
+      overflow: auto;
+    }
+
+    .content {
+      margin-left: 250px;
+      padding: 20px;
+    }
+
+    .ai-notes,
+    .ai-questions,
+    .copy-box {
+      margin-top: 20px;
+    }
+
+    .copy-box textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .bg-primary text-white text-center p-3 {
+      bottom: 0%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark">
+    <div class="container">
+      <a class="navbar-brand" href="#">
+        <img src="Images/TakeNote image.png" alt="TakeNote Logo" height="50" width="50">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" class="nav-link">Login</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link">About</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <a href="profrec.html" class="dashboard-link">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Record Lectures</h5>
+          <p class="card-text">Manage Lecture Recordings.</p>
+        </div>
+      </div>
+    </a>
+
+    <a href="profnotes.html" class="dashboard-link">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Notes Tester</h5>
+          <p class="card-text">Create and organize your notes.</p>
+        </div>
+      </div>
+    </a>
+    <a href="profasin.html" class="dashboard-link">
+      <div class="card">
+        <div class="card-body text-center">
+          <h5 class="card-title">Questions Generator</h5>
+          <p class="card-text">Create and grade assignments.</p>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Content -->
+  <div class="content">
+    <h2>Lecture Question Generator</h2>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Enter lecture topic or keywords" id="lectureTopic">
+      <button class="btn btn-primary" type="button" onclick="generateQuestions()">Generate Questions</button>
+    </div>
+    <div class="ai-questions">
+      <h5>AI Generated Questions</h5>
+      <ul class="list-group" id="questionList"></ul>
+      <div class="mt-3">
+        <button class="btn btn-success" type="button" onclick="saveQuestions()">Save Questions</button>
+      </div>
+    </div>
+    <div class="copy-box mt-3">
+      <h5>Copy Questions</h5>
+      <textarea id="copyTextArea" readonly></textarea>
+      <button class="btn btn-primary mt-2" onclick="copyQuestions()">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <script>
+    function generateQuestions() {
+      var lectureTopic = document.getElementById('lectureTopic').value;
+      // Call AI API to generate questions based on lecture topic
+      // For demonstration purposes, we'll just create some dummy questions
+      var questions = [
+        `What are the key concepts of ${lectureTopic}?`,
+        `How does ${lectureTopic} apply to real-world scenarios?`,
+        `What are the common challenges associated with ${lectureTopic}?`
+      ];
+      var questionList = document.getElementById('questionList');
+      var copyTextArea = document.getElementById('copyTextArea');
+      questionList.innerHTML = '';
+      copyTextArea.value = '';
+      questions.forEach(function (question) {
+        var li = document.createElement('li');
+        li.className = 'list-group-item';
+        li.textContent = question;
+        questionList.appendChild(li);
+        copyTextArea.value += question + '\n';
+      });
+    }
+
+    function saveQuestions() {
+      var questions = [];
+      document.querySelectorAll('#questionList .list-group-item').forEach(function (item) {
+        questions.push(item.textContent);
+      });
+      // Call API to save questions
+      // For demonstration purposes, we'll just log the questions to the console
+      console.log('Questions saved:', questions);
+    }
+
+    function copyQuestions() {
+      var copyText = document.getElementById('copyTextArea');
+      copyText.select();
+      document.execCommand('copy');
+      alert('Questions copied to clipboard!');
+    }
+  </script>
+
+  <!-- Footer -->
+  <footer class="bg-primary text-white text-center p-3">
+    <div class="container">
+      <p>&copy; 2024 TakeNote. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
