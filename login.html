@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="logo.png" alt="Take Note Logo">
+        </div>
+        <div class="login-form">
+            <h1>Login</h1>
+            <form action="login.php" method="post">
+                <input type="email" name="email" placeholder="Email Address" required>
+                <input type="password" name="password" placeholder="Password" required>
+                <p class="password-requirements">It must be at least 8 characters & contain letters, numbers, and symbols.</p>
+                <label>
+                    <input type="checkbox" name="remember"> Remember me
+                </label>
+                <a href="forgot-password.html">Forgot Password?</a>
+                <button type="submit">Log In</button>
+            </form>
+            <p class="signup-link">No account yet? <a href="signup.html">Sign Up</a></p>
+        </div>
+    </div>
+</body>
+</html>
